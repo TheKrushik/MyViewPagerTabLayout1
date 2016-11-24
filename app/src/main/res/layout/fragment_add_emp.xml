@@ -17,29 +17,29 @@
             android:nextFocusDown="@+id/etxt_dob"
             android:singleLine="true" />
 
-        <EditText
-            android:id="@+id/etxt_dob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etxt_name"
-            android:hint="@string/dob"
-            android:nextFocusDown="@+id/etxt_salary"
-            android:singleLine="true" />
+        <!--<EditText-->
+            <!--android:id="@+id/etxt_dob"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/etxt_name"-->
+            <!--android:hint="@string/dob"-->
+            <!--android:nextFocusDown="@+id/etxt_salary"-->
+            <!--android:singleLine="true" />-->
 
-        <EditText
-            android:id="@+id/etxt_salary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etxt_dob"
-            android:hint="@string/salary"
-            android:inputType="numberDecimal"
-            android:singleLine="true" />
+        <!--<EditText-->
+            <!--android:id="@+id/etxt_salary"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/etxt_dob"-->
+            <!--android:hint="@string/salary"-->
+            <!--android:inputType="numberDecimal"-->
+            <!--android:singleLine="true" />-->
 
         <LinearLayout
             android:id="@+id/layout_submit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etxt_salary"
+            android:layout_below="@+id/etxt_name"
             android:layout_margin="5dp"
             android:orientation="horizontal"
             android:weightSum="2" >

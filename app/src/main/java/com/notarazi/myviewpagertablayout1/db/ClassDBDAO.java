@@ -4,13 +4,13 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class EmployeeDBDAO {
+public class ClassDBDAO {
 
     protected SQLiteDatabase database;
     private DatabaseManager dbHelper;
     private Context mContext;
 
-    public EmployeeDBDAO(Context context) {
+    public ClassDBDAO(Context context) {
         this.mContext = context;
         dbHelper = DatabaseManager.getHelper(mContext);
         open();

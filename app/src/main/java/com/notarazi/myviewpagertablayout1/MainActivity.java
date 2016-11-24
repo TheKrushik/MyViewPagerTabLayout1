@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.notarazi.myviewpagertablayout1.adapter.MainFragmentPagerAdapter;
+import com.notarazi.myviewpagertablayout1.adapter.SelectFragmentPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
+        viewPager.setAdapter(new SelectFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
         // Give the TabLayout the ViewPager
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-//        tabLayout.setupWithViewPager(viewPager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //fab.setOnClickListener(new View.OnClickListener() {

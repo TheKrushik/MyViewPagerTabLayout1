@@ -15,24 +15,24 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.notarazi.myviewpagertablayout1.R;
-import com.notarazi.myviewpagertablayout1.db.EmployeeDAO;
-import com.notarazi.myviewpagertablayout1.adapter.EmpListAdapter;
-import com.notarazi.myviewpagertablayout1.model.Employee;
+import com.notarazi.myviewpagertablayout1.db.ClassDAO;
+import com.notarazi.myviewpagertablayout1.adapter.ClassAdapter;
+import com.notarazi.myviewpagertablayout1.model.ClassModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class EmpListFragment extends Fragment implements OnItemClickListener,
+public class SelectClassFragment extends Fragment implements OnItemClickListener,
         OnItemLongClickListener {
 
-    public static final String ARG_ITEM_ID = "employee_list";
+    public static final String ARG_ITEM_ID = "class_list";
 
     Activity activity;
-    ListView employeeListView;
-    ArrayList<Employee> employees;
+    ListView classListView;
+    ArrayList<ClassModel> classes;
 
-    EmpListAdapter employeeListAdapter;
-    EmployeeDAO employeeDAO;
+    ClassAdapter classListAdapter;
+    ClassDAO classDAO;
 
     private GetEmpTask task;
 
@@ -40,28 +40,28 @@ public class EmpListFragment extends Fragment implements OnItemClickListener,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-        employeeDAO = new EmployeeDAO(activity);
+        classDAO = new ClassDAO(activity);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_emp_list, container,
+        View view = inflater.inflate(R.layout.fragment_select_class, container,
                 false);
         findViewsById(view);
 
         task = new GetEmpTask(activity);
         task.execute((Void) null);
 
-        employeeListView.setOnItemClickListener(this);
-        employeeListView.setOnItemLongClickListener(this);
-        // Employee e = employeeDAO.getEmployee(1);
-        // Log.d("employee e", e.toString());
+        classListView.setOnItemClickListener(this);
+        classListView.setOnItemLongClickListener(this);
+        // ClassModel e = classDAO.getEmployee(1);
+        // Log.d("classModel e", e.toString());
         return view;
     }
 
     private void findViewsById(View view) {
-        employeeListView = (ListView) view.findViewById(R.id.list_emp);
+        classListView = (ListView) view.findViewById(R.id.listClass);
     }
 
     @Override
@@ -73,30 +73,30 @@ public class EmpListFragment extends Fragment implements OnItemClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> list, View view, int position, long id) {
-        Employee employee = (Employee) list.getItemAtPosition(position);
+        ClassModel classModel = (ClassModel) list.getItemAtPosition(position);
 
-        if (employee != null) {
+        if (classModel != null) {
             Bundle arguments = new Bundle();
-            arguments.putParcelable("selectedEmployee", employee);
+            arguments.putParcelable("selectedEmployee", classModel);
 //            CustomEmpDialogFragment customEmpDialogFragment = new CustomEmpDialogFragment();
 //            customEmpDialogFragment.setArguments(arguments);
 //            customEmpDialogFragment.show(getFragmentManager(),
 //                    CustomEmpDialogFragment.ARG_ITEM_ID);
-            Toast.makeText(activity, employee.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, classModel.getName(), Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Employee employee = (Employee) parent.getItemAtPosition(position);
+        ClassModel classModel = (ClassModel) parent.getItemAtPosition(position);
 
         // Use AsyncTask to delete from database
-        //**employeeDAO.delete(employee);
-        //**employeeListAdapter.remove(employee);
+        //**classDAO.delete(classModel);
+        //**classListAdapter.remove(classModel);
         return true;
     }
 
-    public class GetEmpTask extends AsyncTask<Void, Void, ArrayList<Employee>> {
+    public class GetEmpTask extends AsyncTask<Void, Void, ArrayList<ClassModel>> {
 
         private final WeakReference<Activity> activityWeakRef;
 
@@ -105,24 +105,24 @@ public class EmpListFragment extends Fragment implements OnItemClickListener,
         }
 
         @Override
-        protected ArrayList<Employee> doInBackground(Void... arg0) {
-            ArrayList<Employee> employeeList = employeeDAO.getEmployees();
-            return employeeList;
+        protected ArrayList<ClassModel> doInBackground(Void... arg0) {
+            ArrayList<ClassModel> classModelList = classDAO.getClasses();
+            return classModelList;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Employee> empList) {
+        protected void onPostExecute(ArrayList<ClassModel> classList) {
             if (activityWeakRef.get() != null
                     && !activityWeakRef.get().isFinishing()) {
-                Log.d("employees", empList.toString());
-                employees = empList;
-                if (empList != null) {
-                    if (empList.size() != 0) {
-                        employeeListAdapter = new EmpListAdapter(activity,
-                                empList);
-                        employeeListView.setAdapter(employeeListAdapter);
+                Log.d("classes", classList.toString());
+                classes = classList;
+                if (classList != null) {
+                    if (classList.size() != 0) {
+                        classListAdapter = new ClassAdapter(activity,
+                                classList);
+                        classListView.setAdapter(classListAdapter);
                     } else {
-                        Toast.makeText(activity, "No Employee Records",
+                        Toast.makeText(activity, "No ClassModel Records",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
@@ -133,7 +133,7 @@ public class EmpListFragment extends Fragment implements OnItemClickListener,
 
     /*
      * This method is invoked from MainActivity onFinishDialog() method. It is
-     * called from CustomEmpDialogFragment when an employee record is updated.
+     * called from CustomEmpDialogFragment when an classModel record is updated.
      * This is used for communicating between fragments.
      */
     public void updateView() {

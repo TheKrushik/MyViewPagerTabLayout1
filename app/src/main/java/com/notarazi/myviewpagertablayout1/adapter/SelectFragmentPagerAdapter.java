@@ -5,15 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.notarazi.myviewpagertablayout1.fragment.EmpAddFragment;
-import com.notarazi.myviewpagertablayout1.fragment.EmpListFragment;
+import com.notarazi.myviewpagertablayout1.fragment.ClassAddFragment;
+import com.notarazi.myviewpagertablayout1.fragment.SelectClassFragment;
 import com.notarazi.myviewpagertablayout1.fragment.FragmentPage3;
 
-public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 4;
-    private String tabTitles[] = new String[] { "Employee", "Department", "Unit", "ADD" };
+public class SelectFragmentPagerAdapter extends FragmentPagerAdapter {
+    final int PAGE_COUNT = 3;
+    private String tabTitles[] = new String[] { "Class", "Book", "Unit", "ADD" };
     private Context context;
-    public MainFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public SelectFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -27,8 +27,8 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         switch(arg0){
             /** tab1 is selected */
             case 0:
-                EmpListFragment fragmentpage2EmpList = new EmpListFragment();
-                return fragmentpage2EmpList;
+                SelectClassFragment fragmentClass = new SelectClassFragment();
+                return fragmentClass;
             /** tab2 is selected */
             case 1:
                 FragmentPage3 fragmentpage3 = new FragmentPage3();
@@ -38,7 +38,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
                 FragmentPage3 fragmentpage4 = new FragmentPage3();
                 return fragmentpage4;
             case 3:
-                EmpAddFragment fragmentpage1EmpAdd = new EmpAddFragment();
+                ClassAddFragment fragmentpage1EmpAdd = new ClassAddFragment();
                 return fragmentpage1EmpAdd;
         }
         return null;

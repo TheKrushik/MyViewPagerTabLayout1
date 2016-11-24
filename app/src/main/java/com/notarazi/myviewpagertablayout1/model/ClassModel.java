@@ -5,23 +5,23 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-public class Employee implements Parcelable {
+public class ClassModel implements Parcelable {
 
     private int id;
     private String name;
-    private Date dateOfBirth;
-    private double salary;
+//    private Date dateOfBirth;
+//    private double salary;
 
-    public Employee() {
+    public ClassModel() {
         super();
     }
 
-    private Employee(Parcel in) {
+    private ClassModel(Parcel in) {
         super();
         this.id = in.readInt();
         this.name = in.readString();
-        this.dateOfBirth = new Date(in.readLong());
-        this.salary = in.readDouble();
+//        this.dateOfBirth = new Date(in.readLong());
+//        this.salary = in.readDouble();
     }
 
     public int getId() {
@@ -40,26 +40,27 @@ public class Employee implements Parcelable {
         this.name = name;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
+//    public Date getDateOfBirth() {
+//        return dateOfBirth;
+//    }
+//
+//    public void setDateOfBirth(Date dateOfBirth) {
+//        this.dateOfBirth = dateOfBirth;
+//    }
+//
+//    public double getSalary() {
+//        return salary;
+//    }
+//
+//    public void setSalary(double salary) {
+//        this.salary = salary;
+//    }
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", name=" + name + ", dateOfBirth="
-                + dateOfBirth + ", salary=" + salary + "]";
+        return "ClassModel [id=" + id + ", name=" + name
+//                + ", dateOfBirth=" + dateOfBirth + ", salary=" + salary
+                + "]";
     }
 
     @Override
@@ -78,7 +79,7 @@ public class Employee implements Parcelable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Employee other = (Employee) obj;
+        ClassModel other = (ClassModel) obj;
         if (id != other.id)
             return false;
         return true;
@@ -93,17 +94,17 @@ public class Employee implements Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(getId());
         parcel.writeString(getName());
-        parcel.writeLong(getDateOfBirth().getTime());
-        parcel.writeDouble(getSalary());
+//        parcel.writeLong(getDateOfBirth().getTime());
+//        parcel.writeDouble(getSalary());
     }
 
-    public static final Parcelable.Creator<Employee> CREATOR = new Parcelable.Creator<Employee>() {
-        public Employee createFromParcel(Parcel in) {
-            return new Employee(in);
+    public static final Parcelable.Creator<ClassModel> CREATOR = new Parcelable.Creator<ClassModel>() {
+        public ClassModel createFromParcel(Parcel in) {
+            return new ClassModel(in);
         }
 
-        public Employee[] newArray(int size) {
-            return new Employee[size];
+        public ClassModel[] newArray(int size) {
+            return new ClassModel[size];
         }
     };
 

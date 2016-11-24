@@ -2,23 +2,20 @@ package com.notarazi.myviewpagertablayout1.fragment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.notarazi.myviewpagertablayout1.R;
-import com.notarazi.myviewpagertablayout1.db.EmployeeDAO;
-import com.notarazi.myviewpagertablayout1.model.Employee;
+import com.notarazi.myviewpagertablayout1.db.ClassDAO;
+import com.notarazi.myviewpagertablayout1.model.ClassModel;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -26,7 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class EmpAddFragment extends Fragment implements OnClickListener {
+public class ClassAddFragment extends Fragment implements OnClickListener {
 
     // UI references
     private EditText empNameEtxt;
@@ -41,8 +38,8 @@ public class EmpAddFragment extends Fragment implements OnClickListener {
     DatePickerDialog datePickerDialog;
     Calendar dateCalendar;
 
-    Employee employee = null;
-    private EmployeeDAO employeeDAO;
+    ClassModel classModel = null;
+    private ClassDAO classDAO;
     private AddEmpTask task;
 
     public static final String ARG_ITEM_ID = "emp_add_fragment";
@@ -50,7 +47,7 @@ public class EmpAddFragment extends Fragment implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        employeeDAO = new EmployeeDAO(getActivity());
+        classDAO = new ClassDAO(getActivity());
     }
 
     @Override
@@ -73,22 +70,22 @@ public class EmpAddFragment extends Fragment implements OnClickListener {
     }
 
     private void setListeners() {
-        empDobEtxt.setOnClickListener(this);
-        Calendar newCalendar = Calendar.getInstance();
-        datePickerDialog = new DatePickerDialog(getActivity(),
-                new OnDateSetListener() {
-
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        dateCalendar = Calendar.getInstance();
-                        dateCalendar.set(year, monthOfYear, dayOfMonth);
-                        empDobEtxt.setText(formatter.format(dateCalendar
-                                .getTime()));
-                    }
-
-                }, newCalendar.get(Calendar.YEAR),
-                newCalendar.get(Calendar.MONTH),
-                newCalendar.get(Calendar.DAY_OF_MONTH));
+//        empDobEtxt.setOnClickListener(this);
+//        Calendar newCalendar = Calendar.getInstance();
+//        datePickerDialog = new DatePickerDialog(getActivity(),
+//                new OnDateSetListener() {
+//
+//                    public void onDateSet(DatePicker view, int year,
+//                                          int monthOfYear, int dayOfMonth) {
+//                        dateCalendar = Calendar.getInstance();
+//                        dateCalendar.set(year, monthOfYear, dayOfMonth);
+//                        empDobEtxt.setText(formatter.format(dateCalendar
+//                                .getTime()));
+//                    }
+//
+//                }, newCalendar.get(Calendar.YEAR),
+//                newCalendar.get(Calendar.MONTH),
+//                newCalendar.get(Calendar.DAY_OF_MONTH));
 
         addButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
@@ -101,12 +98,12 @@ public class EmpAddFragment extends Fragment implements OnClickListener {
     }
 
     private void setEmployee() {
-        employee = new Employee();
-        employee.setName(empNameEtxt.getText().toString());
-        employee.setSalary(Double.parseDouble(empSalaryEtxt.getText()
-                .toString()));
-        if (dateCalendar != null)
-            employee.setDateOfBirth(dateCalendar.getTime());
+        classModel = new ClassModel();
+        classModel.setName(empNameEtxt.getText().toString());
+//        classModel.setSalary(Double.parseDouble(empSalaryEtxt.getText()
+//                .toString()));
+//        if (dateCalendar != null)
+//            classModel.setDateOfBirth(dateCalendar.getTime());
     }
 
     @Override
@@ -124,9 +121,9 @@ public class EmpAddFragment extends Fragment implements OnClickListener {
 
     private void findViewsById(View rootView) {
         empNameEtxt = (EditText) rootView.findViewById(R.id.etxt_name);
-        empSalaryEtxt = (EditText) rootView.findViewById(R.id.etxt_salary);
-        empDobEtxt = (EditText) rootView.findViewById(R.id.etxt_dob);
-        empDobEtxt.setInputType(InputType.TYPE_NULL);
+//        empSalaryEtxt = (EditText) rootView.findViewById(R.id.etxt_salary);
+//        empDobEtxt = (EditText) rootView.findViewById(R.id.etxt_dob);
+//        empDobEtxt.setInputType(InputType.TYPE_NULL);
 
         addButton = (Button) rootView.findViewById(R.id.button_add);
         resetButton = (Button) rootView.findViewById(R.id.button_reset);
@@ -156,7 +153,7 @@ public class EmpAddFragment extends Fragment implements OnClickListener {
 
         @Override
         protected Long doInBackground(Void... arg0) {
-            long result = employeeDAO.save(employee);
+            long result = classDAO.saveClass(classModel);
             return result;
         }
 
@@ -165,7 +162,7 @@ public class EmpAddFragment extends Fragment implements OnClickListener {
             if (activityWeakRef.get() != null
                     && !activityWeakRef.get().isFinishing()) {
                 if (result != -1)
-                    Toast.makeText(activityWeakRef.get(), "Employee Saved",
+                    Toast.makeText(activityWeakRef.get(), "ClassModel Saved",
                             Toast.LENGTH_LONG).show();
             }
         }

@@ -5,7 +5,7 @@
     android:background="#EDEDED" >
 
     <ListView
-        android:id="@+id/list_emp"
+        android:id="@+id/listClass"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/transparent"
